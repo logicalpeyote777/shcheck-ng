@@ -1,9 +1,0 @@
-README.md
-pyproject.toml
-shcheck_ng.py
-shcheck_ng.egg-info/PKG-INFO
-shcheck_ng.egg-info/SOURCES.txt
-shcheck_ng.egg-info/dependency_links.txt
-shcheck_ng.egg-info/entry_points.txt
-shcheck_ng.egg-info/requires.txt
-shcheck_ng.egg-info/top_level.txt
