@@ -1,114 +1,127 @@
 # SHCheck-NG
 
-Modern HTTP Security Header Analyzer with AI insights, OSINT support and professional reporting.
-
----
-
-## Overview
-
-SHCheck-NG is a lightweight security tool designed to analyze HTTP response headers and quickly evaluate the security posture of a web service.
-
-It provides:
-
-- Security header detection
-- Missing header identification
-- Cookie flag analysis
-- Automatic server configuration suggestions
-- AI-assisted contextual analysis
-- Passive OSINT mode via Shodan
-- Professional HTML report generation
-
-This tool focuses specifically on HTTP security headers and related configuration.
+Modern HTTP Security Header Analyzer with AI insights, OSINT support and professional HTML reporting.
 
 ---
 
 ## Features
 
-### Header Analysis
-
-Checks modern security headers including:
-
-- Content-Security-Policy
-- Strict-Transport-Security
-- X-Frame-Options
-- X-Content-Type-Options
-- Referrer-Policy
-- Permissions-Policy
-- COOP / COEP / CORP
-- Cookie security attributes
-
----
-
-### AI Security Interpretation (Optional)
-
-Supports local AI endpoints:
-
-- Ollama
-- LM Studio
-- OpenAI-compatible APIs
-
-Provides contextual analysis based on actual header values and configuration.
-
----
-
-### Passive OSINT Mode
-
-Using `--osint`:
-
-- Retrieves HTTP header intelligence from Shodan
-- Avoids direct requests to the target
-- Automatically falls back to active scan if data unavailable
-
-Requires:
-
-```
-SHODAN_API_KEY=your_key_here
-```
-
-in `.env`.
-
----
-
-### Professional HTML Reporting
-
-The generated report includes:
-
-- Security score visualization
-- Header tables
-- AI-generated contextual analysis
-- Configuration remediation snippets
-- Clean professional layout
+- Security header detection (modern + legacy)
+- Missing header identification
+- Cookie security analysis
+- AI contextual security analysis (Ollama / LMStudio / OpenAI-compatible APIs)
+- Optional OSINT mode via Shodan
+- Automatic Nginx / Apache header recommendations
+- Professional HTML report generation
+- Clean CLI output with rich tables
 
 ---
 
 ## Installation
 
-Clone repository:
+### ⭐ Recommended (pipx — safest)
 
-```
-git clone https://github.com/YOUR_USERNAME/shcheck-ng.git
-cd shcheck-ng
+This installs the tool globally but isolated:
+
+```bash
+brew install pipx   # macOS
+pipx ensurepath
+pipx install shcheck-ng
 ```
 
-Install dependencies:
+Then simply:
 
-```
-pip install -r requirements.txt
+```bash
+shcheck-ng https://example.com
 ```
 
 ---
 
-## Optional Configuration (.env)
+### Development install
 
-Example:
+Clone repo:
+
+```bash
+git clone https://github.com/logicalpeyote777/shcheck-ng.git
+cd shcheck-ng
+```
+
+Create venv:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Install:
+
+```bash
+pip install -e .
+```
+
+---
+
+### Basic pip install (not recommended globally)
+
+```bash
+pip install .
+```
+
+Use pipx instead if unsure.
+
+---
+
+## Configuration (.env file)
+
+SHCheck-NG supports environment configuration via `.env`.
+
+### Where to place `.env`
+
+Preferred locations:
+
+1. **Directory where you run the command**
 
 ```
+project/
+├── .env
+└── your-scan-command
+```
+
+2. Or system environment variables (recommended for production).
+
+---
+
+### Example `.env`
+
+```env
 AI_URL=http://localhost:1234
 AI_MODEL=openai-gpt-oss-20b
-SHODAN_API_KEY=your_key_here
+SHODAN_API_KEY=your_shodan_api_key_here
 ```
 
-All optional.
+---
+
+## Environment Variables (alternative to .env)
+
+You can also export variables:
+
+```bash
+export AI_URL=http://localhost:1234
+export AI_MODEL=llama3
+export SHODAN_API_KEY=xxx
+```
+
+Then run normally:
+
+```bash
+shcheck-ng https://example.com
+```
+
+Priority order:
+
+```
+CLI flags > Environment variables > .env > defaults
+```
 
 ---
 
@@ -116,37 +129,61 @@ All optional.
 
 ### Basic scan
 
-```
-python shcheck_ng.py https://example.com
+```bash
+shcheck-ng https://example.com
 ```
 
 ### Generate HTML report
 
-```
-python shcheck_ng.py https://example.com --report
-```
-
-### AI analysis
-
-```
-python shcheck_ng.py https://example.com --ai http://localhost:1234
+```bash
+shcheck-ng https://example.com --report
 ```
 
-or automatically via `.env`.
+### Enable AI analysis
 
-### Passive OSINT mode
+```bash
+shcheck-ng https://example.com --ai
+```
+
+(Uses `.env` automatically if present.)
+
+---
+
+### OSINT passive mode (Shodan)
+
+```bash
+shcheck-ng https://example.com --osint
+```
+
+Requires:
 
 ```
-python shcheck_ng.py https://example.com --osint
+SHODAN_API_KEY
 ```
+
+---
+
+## Output
+
+The tool provides:
+
+- Header presence tables
+- Security scoring
+- AI remediation analysis
+- Suggested server configs
+- Optional HTML professional report
 
 ---
 
 ## Scope
 
-This tool evaluates HTTP security header posture.
+This tool evaluates HTTP security header posture only.
 
-It does not perform vulnerability scanning or application testing.
+It does NOT perform:
+
+- penetration testing
+- vulnerability exploitation
+- application security testing
 
 ---
 
@@ -154,11 +191,17 @@ It does not perform vulnerability scanning or application testing.
 
 Python 3.9+
 
-Dependencies:
+Dependencies handled automatically.
 
-- rich
-- requests
-- python-dotenv
+---
+
+## Best Practice Recommendation
+
+For CLI security tools:
+
+- Use `pipx` installation
+- Use environment variables for automation
+- Avoid system Python modifications
 
 ---
 
@@ -168,15 +211,6 @@ MIT License.
 
 ---
 
-## Contributions
+If this tool helps you:
 
-Contributions are welcome:
-
-- Header analysis improvements
-- Additional OSINT providers
-- Report enhancements
-- Packaging and automation
-
----
-
-If this project helps you, consider starring the repository.
+⭐ Star the repo on GitHub.
