@@ -1,0 +1,2 @@
+[console_scripts]
+shcheck-ng = shcheck_ng:main
