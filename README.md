@@ -99,16 +99,6 @@ AI_MODEL=openai-gpt-oss-20b
 SHODAN_API_KEY=your_shodan_api_key_here
 ```
 
-or you can export before to launch the command
-
-```
-export AI_URL=http://192.168.1.63:1234
-export AI_MODEL=openai-gpt-oss-20b-abliterated-uncensored-neo-imatrix
-export SHODAN_API_KEY=xxxxx
-```
-
-
-
 ---
 
 ## Environment Variables (alternative to .env)
@@ -152,7 +142,7 @@ shcheck-ng https://example.com --report
 ### Enable AI analysis
 
 ```bash
-shcheck-ng https://example.com --ai
+shcheck-ng https://example.com --ai http://localhost:1234 --ai-model gpt-oss:20b
 ```
 
 (Uses `.env` automatically if present.)
